@@ -13,20 +13,21 @@ contract SpiderManGame {
     }
 
     function startGame(address _villain) public  {
-        require(_villain != address(0), "Invalid villain address");
+        require(_villain != spiderMan , "Invalid villain address");
         villain = _villain;
         gameInProgress = true;
     }
 
-    function defeatVillain() public  {
-        gameInProgress = false;
-        villain = address(1);
+    function defeatVillain() public view returns (bool)  {
+        if( !gameInProgress ){
+            callRevert();
+        }
+        return true;
     }
 
     function gameOver() public {
         assert(gameInProgress);
         gameInProgress = false;
-        villain = address(0);
     }
 
     function callRevert() public pure {
